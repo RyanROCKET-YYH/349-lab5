@@ -57,11 +57,8 @@ struct adc_reg_map {
 /** @brief Continuous conversion */
 #define ADC1_CR2_CONT  (1 << 1)
 
-/** @brief SQR2 SQ11[4:0] */
-#define ADC1_SQR1_SQ1 (31 << 0)
-
-/** @brief Channel Squence length -- 11 in this case */
-#define SEQUENCE_LENGTH (10 << 20)
+/** @brief SQR3 SQ1[4:0] */
+#define ADC1_SQR3_SQ1 (31 << 0)
 
 /** @brief Regular channel end of conversion */
 #define ADC1_SR_EOC (1 << 1)
@@ -79,11 +76,10 @@ void adc_init(){
 	struct rcc_reg_map *rcc = RCC_BASE;
 	rcc->apb2_enr |= ADC_CLKEN;
 
-	// GPIO Pins(PA_0, A0)(ADC1/0) 
-	gpio_init(GPIO_A, 0, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0); // temperature sensor
-
-	// GPIO Pins(PA_1, A1)(ADC1/1) 
-	gpio_init(GPIO_A, 1, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0); // LM34
+	// GPIO Pins(PA_0, A0)(ADC1/0)  light sensor
+	gpio_init(GPIO_A, 0, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0);
+	// (PA_1 A1) (ADC1/1) temp sensor
+	gpio_init(GPIO_A, 1, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0);
 
 	// set adc
 	struct adc_reg_map *adc = ADC1_BASE;
@@ -106,11 +102,10 @@ void adc_init(){
 uint16_t adc_read_chan(uint8_t chan){
 	struct adc_reg_map *adc = ADC1_BASE;
 
-	adc->SQR2 &= ~ADC1_SQR1_SQ1;
-	adc->SQR2 |= chan;
+	adc->SQR3 &= ~ADC1_SQR3_SQ1;
+	adc->SQR3 |= chan;
 
 	adc->SQR1 &= ~ADC1_SQR1_L;
-	adc->SQR1 |= SEQUENCE_LENGTH;
 
 	adc->CR2 |= ADC1_CR2_SWSTART;
 

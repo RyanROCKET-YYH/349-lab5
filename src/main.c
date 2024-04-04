@@ -12,99 +12,75 @@
 #include <task.h>
 #include <adc.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <uart.h>
 
-// /**
-//  *
-//  * @brief The task of ADC read of temperature sensor
-//  * 
-//  */
-// void vADCReadTask(void *pvParameters) {
-//     (void)pvParameters;
-//     adc_init(); 
-//     while(1) {
-//         uint16_t adcValue = adc_read_chan(0);
-//         printf("ADC Value: %u\n", adcValue);
+#define ADC_REF_VOLTAGE (3.3f)
+#define ADC_MAX_VAL (1023.0f)
+#define LIGHT_SENSOR_CHAN (0)
+#define TEMP_SENOR_CHAN (1)
+#define SAMPLE (5)
 
-//         vTaskDelay(pdMS_TO_TICKS(500));
-//     }
-// }
-
-/**
- *
- * @brief The task of ADC read of LM34
- * 
- */
-// void vLM34ADCReadTask(void *pvParameters) {
-//     (void)pvParameters;
-//     adc_init(); 
-//     while(1) {
-//         uint16_t adcValue = adc_read_chan(1);
-//         printf("ADC: %u\n", adcValue);
-
-//         vTaskDelay(pdMS_TO_TICKS(500));
-//     }
-// }
-
-void vLM34ADCReadTask(void *pvParameters) {
+void vLIGHTReadTask(void *pvParameters) {
     (void)pvParameters;
-    adc_init();
-
-    const int readingsCount = 10; // Number of readings for the moving average
-    uint16_t adcValues[readingsCount];
-    adcValues[readingsCount] = 0;
-    int readIndex = 0;
-    long sum = 0;
-    int numReadings = 0;
-
-    // TODO: the temperature is incorrect. Maybe it's because the process of converting the values wrong
+     
     while(1) {
-        uint16_t adcValue = adc_read_chan(1); // Read ADC value from LM34 channel
-        
-        // Subtract the last reading:
-        sum -= adcValues[readIndex];
-        // Read from the sensor:
-        adcValues[readIndex] = adcValue;
-        // Add the reading to the sum:
-        sum += adcValues[readIndex];
-        // Advance to the next position in the array:
-        readIndex = (readIndex + 1) % readingsCount;
-        
-        // For the first few iterations until array is filled
-        if(numReadings < readingsCount) {
-            numReadings++;
-        }
-
-        long averageAdcValue = sum / numReadings;
-
-        // Convert ADC value to voltage
-        float voltage = (averageAdcValue / 1024.0) * 3.3;
-
-        // Convert voltage to Fahrenheit
-        float temperatureF = voltage / 0.01; // LM34: 10mV/°F
-
-        // Convert Fahrenheit to Celsius
-        float temperatureC = (5.0 / 9.0) * (temperatureF - 32);
-
-        printf("Temperature: %ld°F, %ld°C\n", (long)(temperatureF * 100), (long)(temperatureC * 100));
+        // uint16_t adcValue = adc_read_chan(LIGHT_SENSOR_CHAN);
+        // printf("Light ADC Value: %u\n", adcValue);
 
         vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
+void vTEMPTask(void *pvParameters) {
+    (void)pvParameters;
+    float total = 0;
+    float temp[SAMPLE] = {0};
+    int index = 0;
 
-/**
- *
- * @brief The main function
- * 
- */
+    while(1) {
+        uint16_t temp_adc = adc_read_chan(TEMP_SENOR_CHAN);
+        float vout = ((float)temp_adc / ADC_MAX_VAL) * ADC_REF_VOLTAGE;
+        float tempC = (vout * 100.0f);
+
+        // rolling average for temp reading
+        total -= temp[index];
+        temp[index] = tempC;
+        total += temp[index];
+        index++;
+        if (index >= SAMPLE) {
+            index = 0;
+        }
+        float avgTempC = total / SAMPLE;
+        float avgTempF = (avgTempC * 9.0f / 5.0f) + 32.0f;
+
+        int tempF_int = (int)(avgTempF * 100);
+        int tempC_int = (int)(avgTempC * 100);
+
+        printf("Avg Temp: %d.%02d°C or %d.%02d°F\n",
+               tempC_int / 100, abs(tempC_int % 100),
+               tempF_int / 100, abs(tempF_int % 100));
+
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+
+}
+
 int main( void ) {
     uart_init(115200);
+    adc_init();
+    xTaskCreate(
+        vLIGHTReadTask,
+        "LIGHTRead",
+        configMINIMAL_STACK_SIZE,
+        NULL,
+        tskIDLE_PRIORITY + 1,
+        NULL);
 
     // temperature sensor
     xTaskCreate(
-        vLM34ADCReadTask,
-        "LM34ADCRead",
+        vTEMPTask,
+        "TEMPRead",
         configMINIMAL_STACK_SIZE,
         NULL,
         tskIDLE_PRIORITY + 1,
