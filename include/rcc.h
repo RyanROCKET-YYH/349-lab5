@@ -60,4 +60,7 @@ struct rcc_reg_map {
 #define TIM4_CLKEN  (1 << 2)
 #define TIM3_CLKEN  (1 << 1)
 #define TIM2_CLKEN  (1)
+
+/** @brief ADC's clock enable bit */
+#define ADC_CLKEN  (1 << 8)
 #endif /* _RCC_H_ */
