@@ -1,11 +1,11 @@
 /**
  * @file adc.c
  *
- * @brief
+ * @brief the functions to implement adc initialization and read
  *
- * @date
+ * @date 04/04/2024
  *
- * @author
+ * @author Yuhong Yao (yuhongy), Yiying Li (yiyingl4)
  */
 
 #include <gpio.h>
@@ -66,9 +66,14 @@ struct adc_reg_map {
 /** @brief Regular channel end of conversion */
 #define ADC1_SR_EOC (1 << 1)
 
+/** @brief ADC regular sequence register 1 -- Regularchannelsequencelength */
 #define ADC1_SQR1_L (0xF << 20)
 
-
+/**
+ *
+ * @brief  initialize the adc.
+ *
+ */
 void adc_init(){
 	// set rcc
 	struct rcc_reg_map *rcc = RCC_BASE;
@@ -90,6 +95,11 @@ void adc_init(){
 	return;
 }
 
+/**
+ *
+ * @brief  Performing an ADC read.
+ *	chan: channel
+ */
 uint16_t adc_read_chan(uint8_t chan){
 	struct adc_reg_map *adc = ADC1_BASE;
 

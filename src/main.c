@@ -1,11 +1,11 @@
 /**
  * @file main.c
  *
- * @brief
+ * @brief some helper functions and the main funtion
  *
- * @date
+ * @date 04/04/2024
  *
- * @author
+ * @author Yuhong Yao (yuhongy), Yiying Li (yiyingl4)
  */
 
 #include <FreeRTOS.h>
@@ -14,7 +14,11 @@
 #include <stdio.h>
 #include <uart.h>
 
-
+/**
+ *
+ * @brief The task of ADC read
+ * 
+ */
 void vADCReadTask(void *pvParameters) {
     (void)pvParameters;
     adc_init(); 
@@ -26,6 +30,11 @@ void vADCReadTask(void *pvParameters) {
     }
 }
 
+/**
+ *
+ * @brief The main function
+ * 
+ */
 int main( void ) {
     uart_init(115200);
 
