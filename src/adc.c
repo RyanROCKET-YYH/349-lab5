@@ -46,10 +46,10 @@ struct adc_reg_map {
 #define ADC1_CR2_ADON  (1 << 0)
 
 /** @brief higher bit of RES */
-#define ADC1_CR1_RES  (1 << 25)
+#define ADC1_CR1_RES_HI  (1 << 25)
 
 /** @brief lower bit of RES */
-#define ADC1_CR1_RES  (1 << 24)
+#define ADC1_CR1_RES_LO (1 << 24)
 
 /** @brief Start conversion of regular channels */
 #define ADC1_CR2_SWSTART  (1 << 30)
@@ -57,14 +57,25 @@ struct adc_reg_map {
 /** @brief Continuous conversion */
 #define ADC1_CR2_CONT  (1 << 1)
 
+/** @brief SQR2 SQ11[4:0] */
+#define ADC1_SQR2_SQ11 (31 << 20)
+
+/** @brief Channel Squence length -- 11 in this case */
+#define SEQUENCE_LENGTH (10 << 20)
+
+/** @brief Regular channel end of conversion */
+#define ADC1_SR_EOC (1 << 1)
+
+#define ADC1_SQR1_L (0xF << 20)
+
 
 void adc_init(){
 	// set rcc
 	struct rcc_reg_map *rcc = RCC_BASE;
 	rcc->apb2_enr |= ADC_CLKEN;
 
-	// GPIO Pins(PA_1, A1)(ADC1/1) 
-	gpio_init(GPIO_A, 1, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0);
+	// GPIO Pins(PC_1, A4)(ADC1/11) 
+	gpio_init(GPIO_C, 1, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0);
 
 	// set adc
 	struct adc_reg_map *adc = ADC1_BASE;
@@ -73,17 +84,26 @@ void adc_init(){
 	adc->CR2 |= ADC1_CR2_ADON;
 	// single conversion mode
 	adc->CR2 &= ~(ADC1_CR2_CONT); // enable single conversion mode
-	adc->CR2 |= ADC1_CR2_SWSTART;
+	// adc->CR2 |= ADC1_CR2_SWSTART;
 
 	// set 10 bit resolution for the ADC
-	adc->CR1 &= ~(ADC1_CR1_RES); // 0
-	adc->CR1 |= ADC1_CR1_RES; // 1
-
-
+	adc->CR1 &= ~(ADC1_CR1_RES_HI); // 0
+	adc->CR1 |= ADC1_CR1_RES_LO; // 1
 	return;
 }
 
 uint16_t adc_read_chan(uint8_t chan){
 	struct adc_reg_map *adc = ADC1_BASE;
-	return -1;
+
+	adc->SQR2 &= ~ADC1_SQR2_SQ11;
+	adc->SQR2 |= (chan << 20);
+
+	adc->SQR1 &= ~ADC1_SQR1_L;
+	adc->SQR1 |= SEQUENCE_LENGTH;
+
+	adc->CR2 |= ADC1_CR2_SWSTART;
+
+	while (!(adc->SR & ADC1_SR_EOC)) {};
+
+	return adc->DR;
 }
