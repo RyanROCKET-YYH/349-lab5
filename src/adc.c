@@ -42,17 +42,42 @@ struct adc_reg_map {
 /** @brief Base Address of ADC1 */
 #define ADC1_BASE   (struct adc_reg_map *) 0x40012000
 
+/** @brief ADON: A/DConverterON/OFF */
+#define ADC1_CR2_ADON  (1 << 0)
+
+/** @brief higher bit of RES */
+#define ADC1_CR1_RES  (1 << 25)
+
+/** @brief lower bit of RES */
+#define ADC1_CR1_RES  (1 << 24)
+
+/** @brief Start conversion of regular channels */
+#define ADC1_CR2_SWSTART  (1 << 30)
+
+/** @brief Continuous conversion */
+#define ADC1_CR2_CONT  (1 << 1)
+
 
 void adc_init(){
 	// set rcc
 	struct rcc_reg_map *rcc = RCC_BASE;
 	rcc->apb2_enr |= ADC_CLKEN;
 
-	// GPIO Pins(D14: I2C1_SDA, D15: I2C1_SCL) TODO:
-    // gpio_init(GPIO_B, 8, MODE_ALT, OUTPUT_OPEN_DRAIN, OUTPUT_SPEED_LOW, PUPD_NONE, ALT4);   /* PB_8(D15), SCL */
+	// GPIO Pins(PA_1, A1)(ADC1/1) 
+	gpio_init(GPIO_A, 1, MODE_ANALOG_INPUT, OUTPUT_PUSH_PULL, OUTPUT_SPEED_LOW, PUPD_NONE, ALT0);
 
 	// set adc
-	struct rcc_reg_map *rcc = ADC1_BASE;
+	struct adc_reg_map *adc = ADC1_BASE;
+
+	// turn on adc power
+	adc->CR2 |= ADC1_CR2_ADON;
+	// single conversion mode
+	adc->CR2 &= ~(ADC1_CR2_CONT); // enable single conversion mode
+	adc->CR2 |= ADC1_CR2_SWSTART;
+
+	// set 10 bit resolution for the ADC
+	adc->CR1 &= ~(ADC1_CR1_RES); // 0
+	adc->CR1 |= ADC1_CR1_RES; // 1
 
 
 	return;
