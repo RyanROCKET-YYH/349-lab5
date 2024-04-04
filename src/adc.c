@@ -84,5 +84,6 @@ void adc_init(){
 }
 
 uint16_t adc_read_chan(uint8_t chan){
+	struct adc_reg_map *adc = ADC1_BASE;
 	return -1;
 }
