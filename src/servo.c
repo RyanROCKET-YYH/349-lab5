@@ -18,9 +18,9 @@
 #define UNUSED __attribute__((unused))
 
 /** @brief macro for channel 0 pin */
-#define CHANNEL0_PIN (0)
+#define CHANNEL0_PIN (10)
 /** @brief macro for channel 1 pin */
-#define CHANNEL1_PIN (1)
+#define CHANNEL1_PIN (2)
 /** @brief macro for servo period */
 #define SERVO_PERIOD (200)
 
