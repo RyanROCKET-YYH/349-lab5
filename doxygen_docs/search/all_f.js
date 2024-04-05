@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sequence_5flength_0',['SEQUENCE_LENGTH',['../adc_8c.html#ae3f4615a20d2dae8c494a168778e790a',1,'adc.c']]],
+  ['sample_0',['SAMPLE',['../main_8c.html#afc597c76b4f04a2da506a240d51d89a0',1,'main.c']]],
   ['servo_2ec_1',['servo.c',['../servo_8c.html',1,'']]],
   ['servo_5fenable_2',['servo_enable',['../servo_8c.html#a28d7b6989b81330533d9353ae4eae6d5',1,'servo.c']]],
   ['servo_5fperiod_3',['SERVO_PERIOD',['../servo_8c.html#afb004735ca38de9210e8b8e9e84fcacb',1,'servo.c']]],

@@ -81,7 +81,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -92,24 +94,142 @@ $(function() {
 <code>#include &lt;task.h&gt;</code><br />
 <code>#include &lt;adc.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;uart.h&gt;</code><br />
+<code>#include &lt;atcmd.h&gt;</code><br />
+<code>#include &lt;gpio.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;lcd_driver.h&gt;</code><br />
+<code>#include &lt;keypad_driver.h&gt;</code><br />
+<code>#include &lt;servo.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;i2c.h&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a9d3ea7ce740f91ace37ec28a85e74315" id="r_a9d3ea7ce740f91ace37ec28a85e74315"><td class="memItemLeft" align="right" valign="top"><a id="a9d3ea7ce740f91ace37ec28a85e74315" name="a9d3ea7ce740f91ace37ec28a85e74315"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ADC_REF_VOLTAGE</b>&#160;&#160;&#160;(3.3f)</td></tr>
+<tr class="memdesc:a9d3ea7ce740f91ace37ec28a85e74315"><td class="mdescLeft">&#160;</td><td class="mdescRight">define ADC_REF_VOLTAGE <br /></td></tr>
+<tr class="separator:a9d3ea7ce740f91ace37ec28a85e74315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a63fb6f00694ff9f4318b4142c5c868" id="r_a3a63fb6f00694ff9f4318b4142c5c868"><td class="memItemLeft" align="right" valign="top"><a id="a3a63fb6f00694ff9f4318b4142c5c868" name="a3a63fb6f00694ff9f4318b4142c5c868"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ADC_MAX_VAL</b>&#160;&#160;&#160;(1023.0f)</td></tr>
+<tr class="memdesc:a3a63fb6f00694ff9f4318b4142c5c868"><td class="mdescLeft">&#160;</td><td class="mdescRight">define ADC_MAX_VAL <br /></td></tr>
+<tr class="separator:a3a63fb6f00694ff9f4318b4142c5c868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aa13610f3b5940aac58c8d87d9ac83f" id="r_a3aa13610f3b5940aac58c8d87d9ac83f"><td class="memItemLeft" align="right" valign="top"><a id="a3aa13610f3b5940aac58c8d87d9ac83f" name="a3aa13610f3b5940aac58c8d87d9ac83f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LIGHT_SENSOR_CHAN</b>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:a3aa13610f3b5940aac58c8d87d9ac83f"><td class="mdescLeft">&#160;</td><td class="mdescRight">define LIGHT_SENSOR_CHAN <br /></td></tr>
+<tr class="separator:a3aa13610f3b5940aac58c8d87d9ac83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5af0c63551ef72afdb5a5a72a852c8" id="r_a4e5af0c63551ef72afdb5a5a72a852c8"><td class="memItemLeft" align="right" valign="top"><a id="a4e5af0c63551ef72afdb5a5a72a852c8" name="a4e5af0c63551ef72afdb5a5a72a852c8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TEMP_SENOR_CHAN</b>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memdesc:a4e5af0c63551ef72afdb5a5a72a852c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">define TEMP_SENOR_CHAN <br /></td></tr>
+<tr class="separator:a4e5af0c63551ef72afdb5a5a72a852c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc597c76b4f04a2da506a240d51d89a0" id="r_afc597c76b4f04a2da506a240d51d89a0"><td class="memItemLeft" align="right" valign="top"><a id="afc597c76b4f04a2da506a240d51d89a0" name="afc597c76b4f04a2da506a240d51d89a0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SAMPLE</b>&#160;&#160;&#160;(10)</td></tr>
+<tr class="memdesc:afc597c76b4f04a2da506a240d51d89a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">define SAMPLE <br /></td></tr>
+<tr class="separator:afc597c76b4f04a2da506a240d51d89a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84cc0d5c74794ab88096293c65dc2e25" id="r_a84cc0d5c74794ab88096293c65dc2e25"><td class="memItemLeft" align="right" valign="top"><a id="a84cc0d5c74794ab88096293c65dc2e25" name="a84cc0d5c74794ab88096293c65dc2e25"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_PASSCODE_LENGTH</b>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:a84cc0d5c74794ab88096293c65dc2e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">define MAX_PASSCODE_LENGTH <br /></td></tr>
+<tr class="separator:a84cc0d5c74794ab88096293c65dc2e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac688de473127bf5a6423466a0221095d" id="r_ac688de473127bf5a6423466a0221095d"><td class="memItemLeft" align="right" valign="top"><a id="ac688de473127bf5a6423466a0221095d" name="ac688de473127bf5a6423466a0221095d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LOCKED_POSITION</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ac688de473127bf5a6423466a0221095d"><td class="mdescLeft">&#160;</td><td class="mdescRight">define LOCKED_POSITION <br /></td></tr>
+<tr class="separator:ac688de473127bf5a6423466a0221095d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae628be8c0e92fc6c4852b3f9c5b02d11" id="r_ae628be8c0e92fc6c4852b3f9c5b02d11"><td class="memItemLeft" align="right" valign="top"><a id="ae628be8c0e92fc6c4852b3f9c5b02d11" name="ae628be8c0e92fc6c4852b3f9c5b02d11"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>UNLOCKED_POSITION</b>&#160;&#160;&#160;180</td></tr>
+<tr class="memdesc:ae628be8c0e92fc6c4852b3f9c5b02d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">define UNLOCKED_POSITION <br /></td></tr>
+<tr class="separator:ae628be8c0e92fc6c4852b3f9c5b02d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a43abacbe0f8b75dbe43b4a55ec2280b8" id="r_a43abacbe0f8b75dbe43b4a55ec2280b8"><td class="memItemLeft" align="right" valign="top"><a id="a43abacbe0f8b75dbe43b4a55ec2280b8" name="a43abacbe0f8b75dbe43b4a55ec2280b8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>vADCReadTask</b> (void *pvParameters)</td></tr>
-<tr class="memdesc:a43abacbe0f8b75dbe43b4a55ec2280b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The task of ADC read. <br /></td></tr>
-<tr class="separator:a43abacbe0f8b75dbe43b4a55ec2280b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a306b635b870db1703cd49f9ffdd6db2a" id="r_a306b635b870db1703cd49f9ffdd6db2a"><td class="memItemLeft" align="right" valign="top"><a id="a306b635b870db1703cd49f9ffdd6db2a" name="a306b635b870db1703cd49f9ffdd6db2a"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>handleResume</b> (void *args, const char *cmdArgs)</td></tr>
+<tr class="memdesc:a306b635b870db1703cd49f9ffdd6db2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the AT+Resume command <br /></td></tr>
+<tr class="separator:a306b635b870db1703cd49f9ffdd6db2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3160fb40dfc3a731401566948f355840" id="r_a3160fb40dfc3a731401566948f355840"><td class="memItemLeft" align="right" valign="top"><a id="a3160fb40dfc3a731401566948f355840" name="a3160fb40dfc3a731401566948f355840"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>handleHello</b> (void *args, const char *cmdArgs)</td></tr>
+<tr class="memdesc:a3160fb40dfc3a731401566948f355840"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the AT+Hello=&lt;&gt; command <br /></td></tr>
+<tr class="separator:a3160fb40dfc3a731401566948f355840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab870359dba98f81d09ab9f2d69e03f27" id="r_ab870359dba98f81d09ab9f2d69e03f27"><td class="memItemLeft" align="right" valign="top"><a id="ab870359dba98f81d09ab9f2d69e03f27" name="ab870359dba98f81d09ab9f2d69e03f27"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>handlePasscode</b> (void *args, const char *cmdArgs)</td></tr>
+<tr class="memdesc:ab870359dba98f81d09ab9f2d69e03f27"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the AT+Passcpde? command <br /></td></tr>
+<tr class="separator:ab870359dba98f81d09ab9f2d69e03f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbcf18524447268eab1328018e1cd773" id="r_acbcf18524447268eab1328018e1cd773"><td class="memItemLeft" align="right" valign="top"><a id="acbcf18524447268eab1328018e1cd773" name="acbcf18524447268eab1328018e1cd773"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>handlePasscodeChange</b> (void *args, const char *cmdArgs)</td></tr>
+<tr class="memdesc:acbcf18524447268eab1328018e1cd773"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the AT+Passcpde=&lt;&gt; command <br /></td></tr>
+<tr class="separator:acbcf18524447268eab1328018e1cd773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7f2c66e654070603bec75ae8da6e56" id="r_a5b7f2c66e654070603bec75ae8da6e56"><td class="memItemLeft" align="right" valign="top"><a id="a5b7f2c66e654070603bec75ae8da6e56" name="a5b7f2c66e654070603bec75ae8da6e56"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vBlinkyTask</b> (void *pvParameters)</td></tr>
+<tr class="memdesc:a5b7f2c66e654070603bec75ae8da6e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the Blinky LED task <br /></td></tr>
+<tr class="separator:a5b7f2c66e654070603bec75ae8da6e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cfc890c109fe12f12a1d6681a3c14eb" id="r_a5cfc890c109fe12f12a1d6681a3c14eb"><td class="memItemLeft" align="right" valign="top"><a id="a5cfc890c109fe12f12a1d6681a3c14eb" name="a5cfc890c109fe12f12a1d6681a3c14eb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vKeypadServoLCDTask</b> (void *pvParameters)</td></tr>
+<tr class="memdesc:a5cfc890c109fe12f12a1d6681a3c14eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the keypad and servo task <br /></td></tr>
+<tr class="separator:a5cfc890c109fe12f12a1d6681a3c14eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa691f67601975eb71d5783ec742c5b5a" id="r_aa691f67601975eb71d5783ec742c5b5a"><td class="memItemLeft" align="right" valign="top"><a id="aa691f67601975eb71d5783ec742c5b5a" name="aa691f67601975eb71d5783ec742c5b5a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>escapeSequenceTask</b> (void *pvParameters)</td></tr>
+<tr class="memdesc:aa691f67601975eb71d5783ec742c5b5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the escape task // 8.4 <br /></td></tr>
+<tr class="separator:aa691f67601975eb71d5783ec742c5b5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1249ac41df7b1cf36af1e4bddcae0699" id="r_a1249ac41df7b1cf36af1e4bddcae0699"><td class="memItemLeft" align="right" valign="top"><a id="a1249ac41df7b1cf36af1e4bddcae0699" name="a1249ac41df7b1cf36af1e4bddcae0699"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vFlashDetectTask</b> (void *pvParameters)</td></tr>
+<tr class="memdesc:a1249ac41df7b1cf36af1e4bddcae0699"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle flash task <br /></td></tr>
+<tr class="separator:a1249ac41df7b1cf36af1e4bddcae0699"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e31d4046ec41c9dd90f5e8eaecd4a8" id="r_ae3e31d4046ec41c9dd90f5e8eaecd4a8"><td class="memItemLeft" align="right" valign="top"><a id="ae3e31d4046ec41c9dd90f5e8eaecd4a8" name="ae3e31d4046ec41c9dd90f5e8eaecd4a8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vTEMPTask</b> (void *pvParameters)</td></tr>
+<tr class="memdesc:ae3e31d4046ec41c9dd90f5e8eaecd4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle temperature sensor <br /></td></tr>
+<tr class="separator:ae3e31d4046ec41c9dd90f5e8eaecd4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main function. <br /></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">main function <br /></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a05fe9081226ae566fc801d5b66c0b301" id="r_a05fe9081226ae566fc801d5b66c0b301"><td class="memItemLeft" align="right" valign="top"><a id="a05fe9081226ae566fc801d5b66c0b301" name="a05fe9081226ae566fc801d5b66c0b301"></a>
+atcmd_parser_t&#160;</td><td class="memItemRight" valign="bottom"><b>parser</b></td></tr>
+<tr class="memdesc:a05fe9081226ae566fc801d5b66c0b301"><td class="mdescLeft">&#160;</td><td class="mdescRight">define parser <br /></td></tr>
+<tr class="separator:a05fe9081226ae566fc801d5b66c0b301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8ac68bf0cdf10f6a6b5fa2215d43960" id="r_ab8ac68bf0cdf10f6a6b5fa2215d43960"><td class="memItemLeft" align="right" valign="top"><a id="ab8ac68bf0cdf10f6a6b5fa2215d43960" name="ab8ac68bf0cdf10f6a6b5fa2215d43960"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>g_passcode</b> = 349</td></tr>
+<tr class="memdesc:ab8ac68bf0cdf10f6a6b5fa2215d43960"><td class="mdescLeft">&#160;</td><td class="mdescRight">define passcode <br /></td></tr>
+<tr class="separator:ab8ac68bf0cdf10f6a6b5fa2215d43960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdac0834d1245a183b18bd3c8ef8f0f2" id="r_afdac0834d1245a183b18bd3c8ef8f0f2"><td class="memItemLeft" align="right" valign="top">const atcmd_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdac0834d1245a183b18bd3c8ef8f0f2">commands</a> []</td></tr>
+<tr class="memdesc:afdac0834d1245a183b18bd3c8ef8f0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle the commands: AT+RESUME AT+HELLO=&lt;&gt; AT+PASSCODE? AT+PASSCODE=&lt;&gt;  <br /></td></tr>
+<tr class="separator:afdac0834d1245a183b18bd3c8ef8f0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>some helper functions and the main funtion </p>
 <dl class="section date"><dt>Date</dt><dd>04/04/2024</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Yuhong Yao (yuhongy), Yiying Li (yiyingl4) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="afdac0834d1245a183b18bd3c8ef8f0f2" name="afdac0834d1245a183b18bd3c8ef8f0f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdac0834d1245a183b18bd3c8ef8f0f2">&#9670;&#160;</a></span>commands</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const atcmd_t commands[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    {<span class="stringliteral">&quot;RESUME&quot;</span>, <a class="code hl_function" href="#a306b635b870db1703cd49f9ffdd6db2a">handleResume</a>, NULL},</div>
+<div class="line">    {<span class="stringliteral">&quot;HELLO&quot;</span>, <a class="code hl_function" href="#a3160fb40dfc3a731401566948f355840">handleHello</a>, NULL},</div>
+<div class="line">    {<span class="stringliteral">&quot;PASSCODE?&quot;</span>, <a class="code hl_function" href="#ab870359dba98f81d09ab9f2d69e03f27">handlePasscode</a>, NULL},</div>
+<div class="line">    {<span class="stringliteral">&quot;PASSCODE&quot;</span>, <a class="code hl_function" href="#acbcf18524447268eab1328018e1cd773">handlePasscodeChange</a>, NULL}</div>
+<div class="line">}</div>
+<div class="ttc" id="amain_8c_html_a306b635b870db1703cd49f9ffdd6db2a"><div class="ttname"><a href="#a306b635b870db1703cd49f9ffdd6db2a">handleResume</a></div><div class="ttdeci">uint8_t handleResume(void *args, const char *cmdArgs)</div><div class="ttdoc">handle the AT+Resume command</div><div class="ttdef"><b>Definition</b> main.c:58</div></div>
+<div class="ttc" id="amain_8c_html_a3160fb40dfc3a731401566948f355840"><div class="ttname"><a href="#a3160fb40dfc3a731401566948f355840">handleHello</a></div><div class="ttdeci">uint8_t handleHello(void *args, const char *cmdArgs)</div><div class="ttdoc">handle the AT+Hello=&lt;&gt; command</div><div class="ttdef"><b>Definition</b> main.c:70</div></div>
+<div class="ttc" id="amain_8c_html_ab870359dba98f81d09ab9f2d69e03f27"><div class="ttname"><a href="#ab870359dba98f81d09ab9f2d69e03f27">handlePasscode</a></div><div class="ttdeci">uint8_t handlePasscode(void *args, const char *cmdArgs)</div><div class="ttdoc">handle the AT+Passcpde? command</div><div class="ttdef"><b>Definition</b> main.c:84</div></div>
+<div class="ttc" id="amain_8c_html_acbcf18524447268eab1328018e1cd773"><div class="ttname"><a href="#acbcf18524447268eab1328018e1cd773">handlePasscodeChange</a></div><div class="ttdeci">uint8_t handlePasscodeChange(void *args, const char *cmdArgs)</div><div class="ttdoc">handle the AT+Passcpde=&lt;&gt; command</div><div class="ttdef"><b>Definition</b> main.c:95</div></div>
+</div><!-- fragment -->
+<p>handle the commands: AT+RESUME AT+HELLO=&lt;&gt; AT+PASSCODE? AT+PASSCODE=&lt;&gt; </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

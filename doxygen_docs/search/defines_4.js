@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['sequence_5flength_0',['SEQUENCE_LENGTH',['../adc_8c.html#ae3f4615a20d2dae8c494a168778e790a',1,'adc.c']]],
-  ['servo_5fperiod_1',['SERVO_PERIOD',['../servo_8c.html#afb004735ca38de9210e8b8e9e84fcacb',1,'servo.c']]]
+  ['light_5fsensor_5fchan_0',['LIGHT_SENSOR_CHAN',['../main_8c.html#a3aa13610f3b5940aac58c8d87d9ac83f',1,'main.c']]],
+  ['locked_5fposition_1',['LOCKED_POSITION',['../main_8c.html#ac688de473127bf5a6423466a0221095d',1,'main.c']]]
 ];

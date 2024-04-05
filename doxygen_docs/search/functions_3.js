@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ringbuffer_5finit_0',['RingBuffer_init',['../uart_8c.html#a1ae9fb7214a3186d9e58d4783669edf6',1,'uart.c']]],
-  ['ringbuffer_5fisempty_1',['RingBuffer_isEmpty',['../uart_8c.html#a364738e7def274e8fe791b7f5db10762',1,'uart.c']]],
-  ['ringbuffer_5fisfull_2',['RingBuffer_isFull',['../uart_8c.html#a0379b91b15675979bfd8676979ce7fdc',1,'uart.c']]],
-  ['ringbuffer_5fread_3',['RingBuffer_Read',['../uart_8c.html#a49d76aaf80bf1bab34ad1f99b441585d',1,'uart.c']]],
-  ['ringbuffer_5fwrite_4',['RingBuffer_Write',['../uart_8c.html#a59b84ffef5ccb0715bd189842650fc71',1,'uart.c']]]
+  ['i2c_5fmaster_5finit_0',['i2c_master_init',['../i2c_8c.html#adf9e8d5cc56f1499c36e8b21a2077c16',1,'i2c.c']]],
+  ['i2c_5fmaster_5fread_1',['i2c_master_read',['../i2c_8c.html#a367ebb1a4dcf5064978136a640167f6c',1,'i2c.c']]],
+  ['i2c_5fmaster_5fstart_2',['i2c_master_start',['../i2c_8c.html#a64b1e75789b0139603624abc46fd3eab',1,'i2c.c']]],
+  ['i2c_5fmaster_5fstop_3',['i2c_master_stop',['../i2c_8c.html#a27c9873ea7314b835cb8135c790026b2',1,'i2c.c']]],
+  ['i2c_5fmaster_5fwrite_4',['i2c_master_write',['../i2c_8c.html#af117782fa4fae6ded8f2914ad5d25b9f',1,'i2c.c']]]
 ];

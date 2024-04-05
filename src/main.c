@@ -24,11 +24,19 @@
 #include <stdbool.h>
 #include <i2c.h>
 
-
+/** @brief define ADC_REF_VOLTAGE */
 #define ADC_REF_VOLTAGE (3.3f)
+
+/** @brief define ADC_MAX_VAL */
 #define ADC_MAX_VAL (1023.0f)
+
+/** @brief define LIGHT_SENSOR_CHAN */
 #define LIGHT_SENSOR_CHAN (0)
+
+/** @brief define TEMP_SENOR_CHAN */
 #define TEMP_SENOR_CHAN (1)
+
+/** @brief define SAMPLE */
 #define SAMPLE (10)
 
 /** @brief define MAX_PASSCODE_LENGTH */
@@ -259,6 +267,10 @@ void escapeSequenceTask(void *pvParameters) {
     }
 }
 
+/**
+ * @brief  handle flash task
+ *
+*/
 void vFlashDetectTask(void *pvParameters) {
     (void)pvParameters;
     //led 
@@ -295,6 +307,10 @@ void vFlashDetectTask(void *pvParameters) {
     }
 }
 
+/**
+ * @brief  handle temperature sensor
+ *
+*/
 void vTEMPTask(void *pvParameters) {
     (void)pvParameters;
     float total = 0;
@@ -333,6 +349,10 @@ void vTEMPTask(void *pvParameters) {
 
 }
 
+/**
+ * @brief main function
+ *
+*/
 int main( void ) {
     uart_init(115200);
     adc_init();
