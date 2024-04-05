@@ -19,7 +19,7 @@
 #define ADC_MAX_VAL (1023.0f)
 #define LIGHT_SENSOR_CHAN (0)
 #define TEMP_SENOR_CHAN (1)
-#define SAMPLE (5)
+#define SAMPLE (10)
 
 void vLIGHTReadTask(void *pvParameters) {
     (void)pvParameters;
@@ -37,11 +37,12 @@ void vTEMPTask(void *pvParameters) {
     float total = 0;
     float temp[SAMPLE] = {0};
     int index = 0;
+    float offsetC = 15.3f;
 
     while(1) {
         uint16_t temp_adc = adc_read_chan(TEMP_SENOR_CHAN);
         float vout = ((float)temp_adc / ADC_MAX_VAL) * ADC_REF_VOLTAGE;
-        float tempC = (vout * 100.0f);
+        float tempC = (vout * 100.0f) - offsetC;
 
         // rolling average for temp reading
         total -= temp[index];
@@ -56,6 +57,8 @@ void vTEMPTask(void *pvParameters) {
 
         int tempF_int = (int)(avgTempF * 100);
         int tempC_int = (int)(avgTempC * 100);
+        
+        // printf("Raw ADC: %u\n", temp_adc);
 
         printf("Avg Temp: %d.%02d°C or %d.%02d°F\n",
                tempC_int / 100, abs(tempC_int % 100),
