@@ -300,7 +300,7 @@ void vTEMPTask(void *pvParameters) {
     float total = 0;
     float temp[SAMPLE] = {0};
     int index = 0;
-    float offsetC = 15.3f;
+    float offsetC = 24.3f;
 
     while(1) {
         uint16_t temp_adc = adc_read_chan(TEMP_SENOR_CHAN);
